@@ -48,7 +48,7 @@ By summoning your personal AI assistant in the sidebar, it not only **reads and 
 
 #### 5. ⚡ Silky Smooth Interactive Experience
 - **One-Click Copy**: Every AI-generated response has a Copy button in the top right corner, allowing you to quickly extract organized thoughts to your clipboard and seamlessly integrate them back into your notes.
-- **Native Markdown Streaming Rendering**: Utilizing the DeepSeek Streaming API (typewriter effect) overlaid with Obsidian's native `MarkdownRenderer`, all complex formatting (bold, lists, code blocks) is rendered perfectly word by word, eliminating anxious waiting times.
+- **Native Markdown Rendering**: All complex formatting (bold, lists, code blocks) is rendered perfectly using Obsidian's native `MarkdownRenderer`.
 - **Quick Enter to Send**: Supports `Enter` to send messages and `Shift + Enter` to insert a new line.
 - **10-Round Coherent Context Memory**: Just like using the ChatGPT web version, it remembers past chat context, ensuring your train of thought doesn't break.
 
@@ -58,9 +58,9 @@ By summoning your personal AI assistant in the sidebar, it not only **reads and 
 
 #### 1. Installation Method
 This plugin is developed using a minimalist native pure TypeScript approach, without relying on any bloated third-party frameworks.
-1. Download the latest compiled plugin release zip (containing `main.js` and `manifest.json`).
+1. Download the latest compiled plugin release zip (containing `main.js`, `styles.css` and `manifest.json`).
 2. Find the hidden `.obsidian/plugins/` folder in your Obsidian vault directory.
-3. Create a new folder named `obsidian-deepseek-note-helper` and place the two files inside.
+3. Create a new folder named `obsidian-deepseek-note-helper` and place the three files inside.
 4. Restart Obsidian, and enable this plugin in **Settings -> Community Plugins**.
 
 #### 2. Configure DeepSeek API
@@ -111,7 +111,7 @@ Click the 🤖 (Robot) icon on the left ribbon to wake up your DeepSeek assistan
 
 #### 5. ⚡ 丝滑流畅的使用交互
 - **一键复制 (Copy)**：每条 AI 生成的回复右上角均配有一键 Copy 按钮，方便您将整理好的思路快速提取到剪贴板，随后无缝融合回笔记里。
-- **原生 Markdown 流式渲染**：采用 DeepSeek Streaming API (打字机效果) 叠加 Obsidian 原生的 `MarkdownRenderer`，所有复杂格式（加粗、列表、代码块）逐字完美展现，杜绝焦躁的等待时间。
+- **原生 Markdown 渲染**：利用 Obsidian 原生的 `MarkdownRenderer`，所有的复杂排版（加粗、列表、代码块）都能被完美呈现。杜绝焦躁的等待时间。
 - **快捷回车发送**：支持 `Enter` 发送消息，`Shift + Enter` 换行输入。
 - **10 轮记忆连贯对话**：像使用 ChatGPT 网页版一样，它会记住过去的聊天上下文，让思想的递进不断链。
 
@@ -121,10 +121,10 @@ Click the 🤖 (Robot) icon on the left ribbon to wake up your DeepSeek assistan
 
 #### 1. 安装方法
 本插件采用极简原生的纯 TypeScript 方案开发，不依赖任何第三方臃肿框架。
-1. 下载最新编译的插件文件压缩包（需包含 `main.js` 和 `manifest.json`）。
-2. 在您的 Obsidian 知识库目录中找到隐藏文件夹 `.obsidian/plugins/`。
-3. 新建一个文件夹命名为 `obsidian-deepseek-note-helper`，将两个文件放入其中。
-4. 重启 Obsidian，在**设置 -> 第三方插件**中开启本插件。
+1. 下载最新编译的插件 Release 压缩包（包含 `main.js`、`styles.css` 和 `manifest.json`）。
+2. 在您的 Obsidian 笔记库目录下，找到隐藏的 `.obsidian/plugins/` 文件夹。
+3. 新建一个名为 `obsidian-deepseek-note-helper` 的文件夹，将这三个文件放入其中。
+4. 重启 Obsidian，在 **设置 -> 第三方插件 (Community Plugins)** 中启用本插件。
 
 #### 2. 配置 DeepSeek API
 1. 点击侧边栏左侧的“齿轮”图标进入设置界面。

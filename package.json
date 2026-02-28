@@ -1,13 +1,13 @@
 {
-  "name": "obsidian-deepseek-plugin",
+  "name": "deepseek-note-helper",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "leoyang1984",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
     "@tsconfig/svelte": "^5.0.8",

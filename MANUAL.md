@@ -2,14 +2,107 @@
 tags:
   - obsidian
   - deepseek
-  - 插件
-  - 使用手册
-  - AI助手
-  - 自动化
-  - 教程
-  - 效率工具
+  - plugin
+  - manual
+  - user-guide
+  - ai-assistant
+  - automation
+  - tutorial
+  - productivity-tools
 ---
-# Obsidian DeepSeek 插件 - 终极魔法使用手册
+# Obsidian DeepSeek Plugin - The Ultimate Magic Manual
+
+[English Version Below](#english-version) | [中文版往下看](#中文版) 
+
+---
+
+## English Version
+
+Welcome to the **Obsidian DeepSeek Sidebar Assistant**!
+This plugin is not just a standard Q&A bot. Powered by an exclusively developed **Agentic Core**, it grows "hands" and "feet"—proactively reading your knowledge base, rewriting properties, and even automating the creation and organization of your files.
+
+This manual will thoroughly dismantle its **Six God-Tier Capabilities**. To help you get started quickly, each capability comes with specific application examples for three major scenarios: [Life], [Study], and [Work].
+
+---
+
+## 👁️ 1. "Heaven's Eye": Current Note & Highlight Focus
+**What it is:**
+DeepSeek is always watching the note you currently have open. No manual copy-pasting is needed. If you **highlight** a specific paragraph in your note, it will prioritize focusing its "gaze" on your selection.
+
+**How to use it:**
+- 🏠 **[Life] Reading Recipes**: Open a *Beef Stew Recipe.md*, highlight the text "simmer on low heat for 40 minutes". Ask the sidebar: *"I'm in a hurry today, can I use a pressure cooker instead? How long do I need to pressure cook it?"*
+- 📚 **[Study] Breaking Down Obscure Papers**: When reading a psychology note and encountering a difficult paragraph, highlight it and type in the sidebar: *"Use language a primary schooler could understand, give me an analogy to explain this paragraph."*
+- 💼 **[Work] Polishing Weekly Reports**: After writing your entire *Week 3 Work Report.md*, **without highlighting anything**, just tell the sidebar: *"Help me check if the wording in this weekly report is professional enough, and provide revision suggestions."*
+
+---
+
+## 🔗 2. "Wall-Piercing": Deep Resolution of Bidirectional Links
+**What it is:**
+If you embed a `[[Bi-directional Link]]` in your current note referencing another note, DeepSeek will "pierce through the wall," automatically fetching the content of the referenced notes for comprehensive analysis.
+
+**How to use it:**
+- 🏠 **[Life] Travel Planning**: In your *7-Day Japan Trip Plan.md*, write `For packing luggage, please refer to [[Universal Travel Gear List]]`. Ask the AI directly: *"Based on this itinerary and combined with my universal list, what extra warm gear do I need to add for winter in Japan?"*
+- 📚 **[Study] Knowledge Connection**: In your *Relativity Notes.md*, include a reference `Review [[Newton's First Law]] for what an inertial frame is`. Ask AI: *"Combining Newton's old law, explain why relativity says an absolutely stationary inertial frame does not exist?"*
+- 💼 **[Work] Advancing Complex Projects**: In your *Q4 Promo Main Plan.md*, link `[[Financial Budget Sheet]]` and `[[Supplier Cooperation Details]]`. Ask AI: *"Synthesizing the budget limits in the financial sheet and the supplier delivery cycles, summarize the three highest risk stages of this promo."*
+
+---
+
+## 🗂️ 3. "Carpet Search": RAG Vault Exploration (`search_vault`)
+**What it is:**
+If your question transcends the scope of the current note, the AI automatically triggers high-level permissions, initiating a carpet scan across your entire Obsidian vault to find all relevant notes, summarizing them to give you an answer.
+
+**How to use it:**
+- 🏠 **[Life] Sorting Old Accounts**: Tell AI: *"Initiate vault search! Help me look through my diaries from the past two years, find what stomach symptoms I complained about, and what medicine I took at the time."*
+- 📚 **[Study] Pre-exam Memory Stitching**: Tell AI: *"Search the whole vault, in what different notes have I mentioned 'Maslow's Hierarchy of Needs'? Summarize their core points into one large review handout."*
+- 💼 **[Work] Reusing Historical Assets**: Tell AI: *"I need to write a new HR regulation policy soon. Help me search the vault for all 'Policy Release Email Templates' I've written over the past two years, and extract the most rigorous and formal templates for me to choose from."*
+
+---
+
+## 🏷️ 4. "Geek Hacker": Metadata Automation Manager (`update_metadata`)
+**What it is:**
+You no longer have to manually type YAML or Properties at the top. The AI can call official background commands to quietly modify attributes for you!
+
+**How to use it:**
+- 🏠 **[Life] Auto-Archiving**: After finishing today's *Ramblings.md*, instruct AI: *"Based on the emotional tone of this article, automatically generate at least 3 appropriate `emotion_tags` in the properties, and change the `status` to `archived`."*
+- 📚 **[Study] Building a Reading Tracker**: After writing a book review, say: *"Inject the following property fields into this note's metadata: `author` (infer from note content), `read_date` (fill in today), `rating` (rate 1-5 based on my insights)."*
+- 💼 **[Work] Batch Advancing Processes**: After discussing customer follow-up strategies with AI in *This Week's High Priority Client List.md*, just command: *"Change the `project_stage` property value of this note from 'contacting' to 'negotiation'."*
+
+---
+
+## ✍️ 5. "Shadow Hand": Full Auto Create & Append (`create_note` & `append_to_note`)
+**What it is:**
+While sparking ideas with AI, you can directly ask it to "turn these wild inspirations into reality, creating a new article in your vault" or "append it to the end of an existing summary list."
+
+**How to use it:**
+- 🏠 **[Life] New Movie List Log**: After fiercely debating recent must-watch cyberpunk movies with AI, say: *"Great chat! Help me create a new note under `/Life/Movies` called `Must-Watch Cyberpunk Movies.md`, and put the top 5 we just finalized into it formatted as a Markdown table."*
+- 📚 **[Study] Fleeting "Web Clipper"**: When seeing good sentences in an article, after AI translates them, instruct: *"Awesome, append this English paragraph and your beautiful translation to the very end of my `/English Study/Advanced Corpus.md` file."*
+- 💼 **[Work] One-Minute Meeting Minutes**: After jotting down a long string of messy meeting points, just let AI show off: *"Organize this messy note into a formal minutes template, then create a new document named `Feb 27 Weekly Meeting Minutes.md` in my `/Work/Project Minutes` and save it."*
+
+---
+
+## 🌪️ 6. "The Scavenger": Directory Bulk Operation Pre-scan (`modify_files_in_directory`)
+**What it is:**
+One of the craziest operations! When you want to uniformly refactor all diaries or notes under a specific folder, issue the grand cleansing command. It will first scan the directory to get a manifest report for you. Upon your authorization or confirmation in streaming chat, it will individually append content or update attributes.
+
+**How to use it:**
+- 🏠 **[Life] Batch Diary Beautification (Prep Phase)**: *"I want to uniformly organize the property fields of all diaries under my `/Diary/2025` folder. Please scan the directory and tell me how many logs are in there."* (After AI lists them, command: *"Now review them one by one. If any diary mentions 'running', add `#sports` to its YAML tags."*)
+- 📚 **[Study] Wrong Question Book**: *"Help me check the `/Wrong Questions/Math` folder. I need to append a `[✅ Needs Review]` tag to the end of every question document that doesn't have a solution steps section. Go scan it first!"*
+- 💼 **[Work] Project Rename Cleanup**: *"Our project code name changed from Apollo to Zeus. Help me comprehensively scan all MD notes in `/Project Files/Apollo`. You need to look at every document—if it has an `alias` property, replace Apollo with Zeus and inject it back. Start scanning now!"*
+
+---
+
+💡 **Pro Tip**:
+All these functions can be used in **combos**. For example: *"Search vault (`search_vault`) for materials related to 'post-mortem', summarize them, create a note (`create_note`) called `Overall Post-Mortem.md` in the root directory to save it, and finally automatically attach the `#postmortem` tag to it (`update_metadata`)."*
+
+Unleash your second brain to the fullest!
+
+<br>
+<br>
+<br>
+
+---
+
+## 中文版
 
 欢迎使用 **Obsidian DeepSeek 侧边栏管家**！
 这个插件不仅仅是一个普通的问答机器，通过独家研发的 **Agentic 核心**，它长出了“手”和“脚”，能主动读取您的知识库、改写属性、乃至自动化创建和整理您的文件。

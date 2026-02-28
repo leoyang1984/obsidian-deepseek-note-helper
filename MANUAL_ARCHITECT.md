@@ -2,13 +2,101 @@
 tags:
   - obsidian
   - deepseek
-  - 插件
-  - 使用手册
-  - 建筑设计
-  - 建筑师
-  - 效率提升
+  - plugin
+  - manual
+  - architecture-design
+  - architect
+  - productivity
 ---
-# Obsidian DeepSeek 插件 - 建筑设计师专属魔法指南
+# Obsidian DeepSeek Plugin - Architect's Exclusive Magic Guide
+
+[English Version Below](#english-version) | [中文版往下看](#中文版) 
+
+---
+
+## English Version
+
+Architectural design is a highly brain-draining process that requires constant back-and-forth navigation through a sea of regulations, drawings, inspirations, and project management tasks.
+
+In this exclusive guide, we will demonstrate how to utilize the 6 Agentic core capabilities of the **Obsidian DeepSeek Sidebar Assistant** to "unload" your brain, transforming it not only into your knowledge base but also into your 24/7 "Chief Detailing Designer" and "Project Grand Manager."
+
+---
+
+## 👁️ 1. "Heaven's Eye": Current Note & Highlight Focus
+**Strike directly at pain points amidst the gaps of drawings and texts.**
+DeepSeek constantly watches the note you have open, whether it's a regulatory excerpt or a historical context analysis. Select the target, straight to the point.
+
+**How to use it:**
+- 🏛️ **[Early Concept] Context Translation**: While reading *A-Plot Historical Context.md*, **highlight** the text regarding "the evolution of local traditional pitched roofs and column-and-tie wooden structures". Ask the sidebar: *"Combining these historical features, my current proposal is a 5,000 sq.m modern art museum. How do you suggest extracting the geometric composition of this traditional pitched roof into a modern skin texture?"*
+- 📏 **[Code Review] Clause Interpretation**: When reading notes, **highlight** a complex clause in the *Building Code* regarding fire compartments. Ask the sidebar: *"If my commercial podium atrium is a three-story high space with an automatic sprinkler system, based on this code, what is the absolute maximum single-floor fire compartment area I can design? Explain the derivation."*
+- 🧱 **[Construction Execution] Craftsmanship Rewriting**: **Highlight** complex pouring ratio instructions for ultra-high-spec fair-faced concrete. Command the AI: *"You are the resident architect. Rewrite this long essay into a concise checklist (Cheat Sheet) with checkboxes for the construction team."*
+
+---
+
+## 🔗 2. "Wall-Piercing": Deep Resolution of Bidirectional Links
+**Architecture is never comprised of isolated nodes; all parameters are interconnected.**
+DeepSeek can read your `[[Bi-links]]`, automatically absorbing and synthesizing cross-file site background, client feedback, and meteorological data.
+
+**How to use it:**
+- ☀️ **[Environmental Fitting] Light Environment Design**: Your design note *Forest Library_Facade Concept.md* contains the link `[[Project Site Illumination and Dominant Wind Data]]`. Ask AI directly: *"Based on this lighting and meteorological data, analyze what form my library's east-west skylights should primarily take, and what density of louvers is needed to solve the western exposure problem?"*
+- 🔧 **[Detail Deepening] Combining Technical Manuals**: While writing *Main Entrance Parametric Canopy Structural Concepts.md*, you linked a downloaded `[[Brand X Single-Layer Cable Net Facade Technical Manual]]`. Ask AI: *"According to the steel cable tension limits in the manufacturer's manual, for my canopy cantilevering outwards by 8 meters, what is the most reasonable way to arrange the anchor points, and what thermal bridge and waterproofing detailing issues should I watch out for?"*
+- 🗣️ **[Client Presentation] Precision Strike on Pain Points**: You linked `[[Summary of All Previous Client Revisions]]` in your *Next Week's Concept Presentation Outline.md*. Ask AI: *"Read through all historical feedback. Write a five-minute opening speech for me. The core must subtly emphasize how our 5th draft proposal perfectly balances their biggest concerns: 'facade cost limits' and 'shop depth area'."*
+
+---
+
+## 🗂️ 3. "Carpet Search": RAG Vault Exploration (`search_vault`)
+**Awaken tens of thousands of historical notes sleeping in your "Personal Case Library" and "Policy Library".**
+
+**How to use it:**
+- 💡 **[Inspiration Mining]**: Facing a boring electrical substation facade renovation, tell the sidebar: *"Initiate vault search! Help me look through all the excellent architectural case notes I've read over the past 3 years. Which ones cleverly used 'perforated aluminum panels' or 'weathering steel'? Extract their facade night-lighting treatment techniques."*
+- ⚖️ **[Red Line Policy Quick Search]**: Upon receiving a new project and facing complex FAR (Floor Area Ratio) issues, command the AI: *"Search the vault. In which notes did I previously organize policy documents regarding local 'prefabricated building bonus FAR' rules? Summarize the specific bonus percentage conditions into a table."*
+- 🏢 **[Supplier Resource Inventory]**: When it's time to make the materials and items list, command: *"Comprehensively search my note vault for all manufacturer contact information regarding 'smart dimming U-glass' and the approximate price per square meter I recorded at the time. Make a comparison list for me."*
+
+---
+
+## 🏷️ 4. "Geek Hacker": Metadata Automation Manager (`update_metadata`)
+**Architects shouldn't waste time manually adding Tags and modifying YAML properties.**
+
+**How to use it:**
+- 🏷️ **[Material Library Instant Categorization]**: You just clipped a beautiful article analyzing a minimalist residence. After reading, instruct: *"Based on the spatial characteristics and design techniques in this article, automatically extract no less than 5 architecture-specific tags and add them to the properties (e.g., #Minimalist, #Microcement, #SpatialFlow, etc.)."*
+- 🚦 **[Project Status Tracking]**: After reading a *Tower 3 Drawing Review Record.md*, order the AI: *"Based on this record's content, change the `project_phase` property of this note to 'DD (Design Development)', change `status` to 'needs_revision', and add `date_modified` as today."*
+- 👷‍♂️ **[Inspection Log Archiving]**: After urgently recording a site log via voice: *"If this inspection log involves rework, automatically add `alert: urgent` in the properties area, and grab all the names of the scolded subcontractors mentioned in the note and put them into the `involved_contractors` property."*
+
+---
+
+## ✍️ 5. "Shadow Hand": Full Auto Create & Append (`create_note` & `append_to_note`)
+**Brainstorm while letting AI automatically generate formal project documents for you, organizing them into the vast sea of your knowledge base.**
+
+**How to use it:**
+- 📑 **[Auto Generate Design Briefs]**: After a one-hour argument and recording fragmented intentions with the client, you instruct the AI: *"Help me create a new note under the `/Projects/Zone B Commercial/` folder called `Zone B Commercial_Design Brief Draft.md`. Extract the various scattered requirements we just discussed regarding total footprint, FAR, height limits, tenant mix, etc., and write it into a standard Markdown template using the formal tone of a top-tier design institute."*
+- 📖 **[Daily Code Accumulation & "Clipping"]**: Whenever you see the clearest visual explanation of the new *Smoke Exhaust Code* in a social media post, just tell the sidebar: *"So useful! Reformat this core visual explanation and append it to the very end of my `/Standard Lookup/Smoke Exhaust Code_Pitfalls.md` file."*
+- 📋 **[Resident Problem Dynamic Compilation]**: During project advancement, let AI handle fragments: *"I have sorted out the curtain wall mullion error issue we just had. Please append this problem description and solution to the end of my daily project master sheet `0227_Tower A_Curtain Wall Tracking Issues.md`."*
+
+---
+
+## 🌪️ 6. "The Scavenger": Directory Bulk Operation Pre-scan (`modify_files_in_directory`)
+**Whether it's project code name changes, code iterations, or restructuring team collaboration materials, large-scale cleansing is a breeze.**
+
+**How to use it:**
+- 🧹 **[Project Rename/Transfer Cleanup]**: *"Our bidding project code name changed from Apollo to Zeus. Do a comprehensive scan of all MD notes in the `/Project Files/Apollo Bidding Team` folder. Tell me what files are there, and if they contain `alias` or `project` properties, later I will need you to replace all 'Apollo' with 'Zeus' and inject it back. Go scan it first!"*
+- 🗑️ **[Obsolete Code Clause Mine-clearing]**: *"With the mandatory implementation of the new General Fire Code, help me check the `/Personal Component Library/Fire Details` folder. Scan all notes to find a list of those containing the exact old phrasing 'Code 5.2.2'. Then add a highlighted tag `#CodeObsolete/NeedsRe-check` to the properties of these notes one by one."*
+- 🤝 **[Intern Collaboration Cleanup]**: *"My intern dumped over 30 disorganized articles into the `/Collected Materials/This Week's Competition Cases` folder. Please scan them. For any note without a core summary or project name literal property, append a `> [!warning] Needs architectural core info extraction` at the beginning of each document, so I can hold them accountable later."*
+
+---
+
+💡 **Pro Tip**:
+Facing the most complex architectural bidding, unleash the **Ultimate Combo**!
+*"Search vault (`search_vault`) for technical summaries related to 'low-carbon near-zero energy office buildings', extract the hard facts, then create a new note (`create_note`) in the `/Competition Team/Qianhai Tower/` directory called `Near-Zero Energy Tech Booklet.md` for reference, and finally auto-attach the `#GreenBuilding` tag to it (`update_metadata`)."*
+
+This is not just your knowledge base; this is your digital architectural partner!
+
+<br>
+<br>
+<br>
+
+---
+
+## 中文版
 
 建筑设计是一项极度消耗脑力、且需要在海量规范、图纸、灵感和项目管理中反复穿梭的复杂工程。
 

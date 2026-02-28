@@ -10,15 +10,76 @@ tags:
 ---
 # Obsidian DeepSeek Plugin - Future Roadmap
 
-目前插件已完成了核心的上下文感知、流式交互以及 Agentic 自动化操作。为了持续进化，我们将未来的规划分为已完成的里程碑和待探索的新领域：
+[English Version Below](#english-version) | [中文版往下看](#中文版) 
+
+---
+
+## English Version
+
+The plugin currently has completed its core context awareness, streaming interaction (now fully native and secure via `requestUrl`), and Agentic automated operations. To continuously evolve, we have divided our future plans into completed milestones and new areas to explore:
+
+> [!CAUTION]
+> **🌟 Urgent & High Priority (Urgent Bugfix)**
+> - [x] **Fix settings persistence failure**: The `this.plugin.saveSettings()` method call error in `main.ts` has been fixed, and configuration can now correctly persist.
+
+## ✅ Phase 1: Interactive Experience (Completed)
+- [x] **Streaming Response (Native)**
+  Integrated DeepSeek API and adapted it for native Obsidian `requestUrl` compliance while maintaining fast rendering.
+- [x] **Selection Memory (Focus)**
+  Resolved the issue of losing highlight upon editor blur, supporting caching of the last selection.
+- [x] **One-Click Quick Copy**
+  Added a Copy button to the response interface to improve the output closed loop.
+
+## ✅ Phase 2: Deep Knowledge Base Integration (Completed)
+- [x] **RAG / Vault Search**
+  Achieved full-vault knowledge extraction via the `search_vault` tool.
+- [x] **Bidirectional Link Deep Resolution**
+  Automatically tracks `[[bi-links]]` and reads associated note contents.
+- [x] **Structured Data Injection (Metadata)**
+  Automated management of YAML properties through the `update_metadata` tool.
+
+## ✅ Phase 3: Agentic Automation Output (Completed)
+- [x] **Fully Automated Note Operations (Function Calling)**
+  AI can autonomously execute `create_note` and `append_to_note`.
+- [x] **Vault Bulk Modification Pre-scan**
+  Achieves safe bulk refactoring through directory scanning and streaming loop calls.
+
+---
+
+## 🚀 Future Exploration: Phase 4 and Beyond
+
+### 📸 Phase 4: Multimodal Perception (Vision)
+- [ ] **Image Content Recognition and Analysis**
+  Allow the model to read `![[images]]` in notes, analyzing flowcharts, handwritten notes, or chart contents.
+- [ ] **Image-to-Code**
+  One-click conversion of screenshots to Mermaid flowchart code or Markdown tables.
+
+### ⌨️ Phase 5: Deep Command Flow (Workflow Integration)
+- [ ] **Shortcut Keys and Slash Commands**
+  Support quick polishing/questioning in-place within the editor via `/deepseek`.
+- [ ] **External Services Extension**
+  Allow API integration to push notes to personal blogs or commit via Git.
+
+---
+*This document is used for long-term thinking and planning. Welcome to iterate based on new pain points in daily use.*
+
+<br>
+<br>
+<br>
+
+---
+
+## 中文版
+
+目前插件已完成了核心的上下文感知、安全请求交互以及 Agentic 自动化操作。为了持续进化，我们将未来的规划分为已完成的里程碑和待探索的新领域：
 
 > [!CAUTION]
 > **🌟 紧急修复任务 (Urgent & High Priority)**
 > - [x] **解决设置持久化失效问题**：已修复 `main.ts` 中的 `this.plugin.saveSettings()` 方法调用错误，现在配置可以正确持久化保存了。
 
 ## ✅ 第一阶段：交互体验（已完成）
-- [x] **打字机效果 (Streaming Response)**
-  接入 DeepSeek Stream API，实现逐字显示。
+- [x] **原生极速响应 (Native Response)**
+  接入 DeepSeek API 并完美适配了 Obsidian 原生的 `requestUrl` 安全规范。
 - [x] **局部文本精准聚焦 (Selection Memory)**
   解决了失焦导致高亮消失的问题，支持缓存最后一次选择。
 - [x] **一键快速复制**

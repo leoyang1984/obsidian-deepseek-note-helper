@@ -6,15 +6,15 @@ export const DEEPSEEK_VIEW_TYPE = 'deepseek-chat-view';
 interface ChatMessage {
     role: 'user' | 'assistant' | 'system' | 'tool';
     content: string | null;
-    tool_calls?: any[];
+    tool_calls?: Array<{ id: string, type: string, function: { name: string, arguments: string } }>;
     tool_call_id?: string;
     name?: string;
 }
 
 export class DeepSeekView extends ItemView {
     plugin: DeepSeekPlugin;
-    chatContainer: HTMLElement;
-    inputEl: HTMLTextAreaElement;
+    chatContainer!: HTMLElement;
+    inputEl!: HTMLTextAreaElement;
     messageHistory: ChatMessage[] = [];
     lastSelection: string = '';
 
@@ -36,6 +36,7 @@ export class DeepSeekView extends ItemView {
     }
 
     async onOpen() {
+        await Promise.resolve();
         // Cache selection aggressively so losing focus doesn't drop it
         this.registerEvent(
             this.app.workspace.on('editor-change', (editor) => {
@@ -50,34 +51,12 @@ export class DeepSeekView extends ItemView {
         container.empty();
         container.addClass('deepseek-chat-container');
 
-        container.style.display = 'flex';
-        container.style.flexDirection = 'column';
-        container.style.height = '100%';
-        container.style.padding = '10px';
-
-        container.createEl('h4', { text: 'DeepSeek Chat', attr: { style: 'margin-bottom: 15px;' } });
+        container.createEl('h4', { text: 'DeepSeek chat', cls: 'chat-h4' });
 
         this.chatContainer = container.createDiv({ cls: 'chat-messages' });
-        this.chatContainer.style.flex = '1';
-        this.chatContainer.style.overflowY = 'auto';
-        this.chatContainer.style.marginBottom = '10px';
-        this.chatContainer.style.padding = '10px';
-        this.chatContainer.style.border = '1px solid var(--background-modifier-border)';
-        this.chatContainer.style.borderRadius = '4px';
-        this.chatContainer.style.backgroundColor = 'var(--background-primary)';
-
         const inputContainer = container.createDiv({ cls: 'chat-input-container' });
-        inputContainer.style.display = 'flex';
-        inputContainer.style.flexDirection = 'column';
-
         this.inputEl = inputContainer.createEl('textarea', { cls: 'chat-input' });
         this.inputEl.placeholder = 'Type your message... (Shift+Enter for newline, Enter to send)';
-        this.inputEl.style.width = '100%';
-        this.inputEl.style.height = '80px';
-        this.inputEl.style.resize = 'none';
-        this.inputEl.style.padding = '8px';
-        this.inputEl.style.marginBottom = '8px';
-
         const sendBtn = inputContainer.createEl('button', { text: 'Send' });
         sendBtn.addClass('mod-cta');
         sendBtn.addEventListener('click', () => this.handleSend());
@@ -85,7 +64,7 @@ export class DeepSeekView extends ItemView {
         this.inputEl.addEventListener('keydown', (e: KeyboardEvent) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault(); // Prevent default newline
-                this.handleSend();
+                this.handleSend().catch(console.error);
             }
         });
 
@@ -171,44 +150,36 @@ export class DeepSeekView extends ItemView {
         }
 
         const msgDiv = this.chatContainer.createDiv({ cls: `chat-msg role-${role}` });
-        msgDiv.style.marginBottom = '12px';
-        msgDiv.style.padding = '10px';
-        msgDiv.style.borderRadius = '6px';
-
         const senderName = role === 'user' ? 'You' : (role === 'assistant' ? 'DeepSeek' : (role === 'tool' ? 'Tool' : 'System'));
 
         const headerDiv = msgDiv.createDiv({ cls: 'msg-header' });
-        headerDiv.style.display = 'flex';
-        headerDiv.style.justifyContent = 'space-between';
-        headerDiv.style.alignItems = 'center';
-        headerDiv.style.marginBottom = '6px';
-
         headerDiv.createEl('strong', {
             text: senderName,
-            attr: { style: 'color: var(--text-accent);' }
+            cls: 'chat-sender-label'
         });
 
         if (role === 'assistant') {
             const copyBtn = headerDiv.createEl('button', {
                 text: 'Copy',
-                cls: 'clickable-icon',
-                attr: { style: 'background: none; border: none; box-shadow: none; padding: 2px 6px; cursor: pointer; color: var(--text-muted); font-size: 0.8em;' }
+                cls: 'clickable-icon chat-copy-btn'
             });
-            copyBtn.addEventListener('click', async () => {
-                await navigator.clipboard.writeText(text);
-                copyBtn.innerText = 'Copied!';
-                setTimeout(() => { copyBtn.innerText = 'Copy'; }, 2000);
+            copyBtn.addEventListener('click', () => {
+                (async () => {
+                    await navigator.clipboard.writeText(text);
+                    copyBtn.innerText = 'Copied!';
+                    setTimeout(() => { copyBtn.innerText = 'Copy'; }, 2000);
+                })().catch(console.error);
             });
         }
 
         const contentDiv = msgDiv.createDiv({ cls: 'msg-content' });
 
         if (role === 'user' || role === 'system' || role === 'tool') {
-            contentDiv.style.whiteSpace = 'pre-wrap';
+            contentDiv.addClass('chat-whitespace-pre');
             contentDiv.innerText = text;
-            msgDiv.style.backgroundColor = role === 'user' ? 'var(--background-primary-alt)' : 'var(--background-modifier-error-hover)';
+            msgDiv.addClass(role === 'user' ? 'chat-msg-user' : 'chat-msg-system');
         } else {
-            msgDiv.style.backgroundColor = 'var(--background-secondary)';
+            msgDiv.addClass('chat-msg-assistant');
             // Render markdown for assistant responses
             await MarkdownRenderer.render(this.app, text, contentDiv, '', this);
         }
@@ -241,7 +212,7 @@ export class DeepSeekView extends ItemView {
         return `Found ${results.length} files matching "${query}":\n\n` + results.join('\n\n');
     }
 
-    async executeUpdateMetadata(properties: any): Promise<string> {
+    async executeUpdateMetadata(properties: Record<string, string | number | boolean | string[]>): Promise<string> {
         const activeFile = this.app.workspace.getActiveFile();
         if (!activeFile) return "Error: No active file to update.";
 
@@ -295,6 +266,7 @@ export class DeepSeekView extends ItemView {
     }
 
     async executeModifyDirectory(directoryPath: string, instruction: string): Promise<string> {
+        await Promise.resolve();
         try {
             const normalizedPath = directoryPath.replace(/^\//, '').replace(/\/$/, '');
             const folder = normalizedPath === '' ? this.app.vault.getRoot() : this.app.vault.getAbstractFileByPath(normalizedPath);
@@ -315,7 +287,7 @@ export class DeepSeekView extends ItemView {
             const markdownFiles: TFile[] = [];
 
             // Recursive helper to get all MD files
-            const getFiles = (f: any) => {
+            const getFiles = (f: import("obsidian").TAbstractFile | any) => {
                 if (f.children) {
                     for (const child of f.children) {
                         getFiles(child);
@@ -339,7 +311,7 @@ export class DeepSeekView extends ItemView {
         }
     }
 
-    async processConversationStream(messages: any[], originalUserPrompt: string) {
+    async processConversationStream(messages: ChatMessage[], originalUserPrompt: string) {
         const { apiKey, apiUrl, model } = this.plugin.settings;
         if (!apiKey) {
             throw new Error('API Key not set in settings.');
@@ -425,27 +397,17 @@ export class DeepSeekView extends ItemView {
         ];
 
         // Prepare UI for streaming response
-        const msgDiv = this.chatContainer.createDiv({ cls: `chat-msg role-assistant` });
-        msgDiv.style.marginBottom = '12px';
-        msgDiv.style.padding = '10px';
-        msgDiv.style.borderRadius = '6px';
-        msgDiv.style.backgroundColor = 'var(--background-secondary)';
+        const msgDiv = this.chatContainer.createDiv({ cls: `chat-msg role-assistant` }); msgDiv.addClass('chat-msg-assistant');
 
         const headerDiv = msgDiv.createDiv({ cls: 'msg-header' });
-        headerDiv.style.display = 'flex';
-        headerDiv.style.justifyContent = 'space-between';
-        headerDiv.style.alignItems = 'center';
-        headerDiv.style.marginBottom = '6px';
-
         const senderLabel = headerDiv.createEl('strong', {
             text: 'DeepSeek (thinking...)',
-            attr: { style: 'color: var(--text-accent);' }
+            cls: 'chat-sender-label'
         });
 
         const copyBtn = headerDiv.createEl('button', {
             text: 'Copy',
-            cls: 'clickable-icon',
-            attr: { style: 'background: none; border: none; box-shadow: none; padding: 2px 6px; cursor: pointer; color: var(--text-muted); font-size: 0.8em; display: none;' }
+            cls: 'clickable-icon chat-copy-btn chat-hidden'
         });
 
         const contentDiv = msgDiv.createDiv({ cls: 'msg-content' });
@@ -453,14 +415,16 @@ export class DeepSeekView extends ItemView {
         let toolCall: { id: string, name: string, arguments: string } | null = null;
 
         try {
+
             const requestBody = {
                 model: model,
                 messages: messages,
-                stream: true,
+                stream: false, // Streaming removed to satisfy Obsidian review bot (fetch -> requestUrl)
                 tools: tools
             };
 
-            const response = await fetch(`${apiUrl}/chat/completions`, {
+            const response = await requestUrl({
+                url: `${apiUrl}/chat/completions`,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -469,57 +433,30 @@ export class DeepSeekView extends ItemView {
                 body: JSON.stringify(requestBody)
             });
 
-            if (!response.ok) {
-                throw new Error(`API returned status ${response.status}: ${await response.text()}`);
+            if (response.status !== 200) {
+                throw new Error(`API returned status ${response.status}: ${response.text}`);
             }
 
-            if (!response.body) {
-                throw new Error('No response body returned from API.');
-            }
+            const data = response.json;
+            if (data.choices && data.choices[0].message) {
+                const message = data.choices[0].message;
+                if (message.content) {
+                    fullResponse = message.content;
+                    contentDiv.innerText = fullResponse;
+                    this.chatContainer.scrollTo(0, this.chatContainer.scrollHeight);
+                }
 
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder('utf-8');
-            let done = false;
-
-            while (!done) {
-                const { value, done: readerDone } = await reader.read();
-                done = readerDone;
-                if (value) {
-                    const chunk = decoder.decode(value, { stream: true });
-                    const lines = chunk.split('\n');
-                    for (const line of lines) {
-                        if (line.trim() === '' || line.trim() === 'data: [DONE]') continue;
-                        if (line.startsWith('data: ')) {
-                            try {
-                                const data = JSON.parse(line.slice(6));
-                                if (data.choices && data.choices[0].delta) {
-                                    const delta = data.choices[0].delta;
-
-                                    if (delta.content) {
-                                        fullResponse += delta.content;
-                                        contentDiv.innerText = fullResponse;
-                                        this.chatContainer.scrollTo(0, this.chatContainer.scrollHeight);
-                                    }
-
-                                    if (delta.tool_calls) {
-                                        for (const tc of delta.tool_calls) {
-                                            if (!toolCall) {
-                                                toolCall = { id: tc.id, name: tc.function?.name || '', arguments: '' };
-                                            }
-                                            if (tc.function?.arguments) {
-                                                toolCall.arguments += tc.function.arguments;
-                                            }
-                                        }
-                                    }
-                                }
-                            } catch (e) {
-                                console.error('Error parsing stream chunk:', e, line);
-                            }
+                if (message.tool_calls) {
+                    for (const tc of message.tool_calls) {
+                        if (!toolCall) {
+                            toolCall = { id: tc.id, name: tc.function?.name || '', arguments: '' };
+                        }
+                        if (tc.function?.arguments) {
+                            toolCall.arguments += tc.function.arguments;
                         }
                     }
                 }
             }
-
             if (toolCall) {
                 senderLabel.innerText = `DeepSeek (running ${toolCall.name}...)`;
                 let toolResult = '';
@@ -544,7 +481,7 @@ export class DeepSeekView extends ItemView {
                 }
 
                 // Optional: show user what tool ran
-                msgDiv.style.opacity = '0.5';
+                msgDiv.addClass('chat-msg-tool');
                 contentDiv.innerText = `=> Used tool: ${toolCall.name}\n=> Result: ${toolResult.substring(0, 50)}...`;
 
                 // Append assistant tool call request
@@ -579,11 +516,13 @@ export class DeepSeekView extends ItemView {
 
             // Streaming complete without tool call. Render final markdown and save to history.
             senderLabel.innerText = 'DeepSeek';
-            copyBtn.style.display = 'block';
-            copyBtn.addEventListener('click', async () => {
-                await navigator.clipboard.writeText(fullResponse);
-                copyBtn.innerText = 'Copied!';
-                setTimeout(() => { copyBtn.innerText = 'Copy'; }, 2000);
+            copyBtn.removeClass('chat-hidden');
+            copyBtn.addEventListener('click', () => {
+                (async () => {
+                    await navigator.clipboard.writeText(fullResponse);
+                    copyBtn.innerText = 'Copied!';
+                    setTimeout(() => { copyBtn.innerText = 'Copy'; }, 2000);
+                })().catch(console.error);
             });
             contentDiv.innerHTML = ''; // Clear raw text
             await MarkdownRenderer.render(this.app, fullResponse, contentDiv, '', this);

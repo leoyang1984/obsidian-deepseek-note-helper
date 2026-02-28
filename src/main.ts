@@ -73,37 +73,38 @@ class DeepSeekSettingTab extends PluginSettingTab {
     display(): void {
         const { containerEl } = this;
         containerEl.empty();
-        containerEl.createEl('h2', { text: 'DeepSeek Settings' });
+        
+        new Setting(containerEl).setName('DeepSeek settings').setHeading();
 
         new Setting(containerEl)
-            .setName('API Key')
-            .setDesc('Enter your DeepSeek API key')
+            .setName('API key')
+            .setDesc('Enter your DeepSeek API key.')
             .addText(text => text
                 .setPlaceholder('sk-...')
                 .setValue(this.plugin.settings.apiKey)
-                .onChange(async (value) => {
+                .onChange((value) => {
                     this.plugin.settings.apiKey = value;
-                    await this.plugin.saveSettings();
+                    this.plugin.saveSettings().catch(console.error);
                 }));
 
         new Setting(containerEl)
             .setName('API URL')
-            .setDesc('Endpoint for DeepSeek API')
+            .setDesc('Endpoint for DeepSeek API.')
             .addText(text => text
                 .setValue(this.plugin.settings.apiUrl)
-                .onChange(async (value) => {
+                .onChange((value) => {
                     this.plugin.settings.apiUrl = value;
-                    await this.plugin.saveSettings();
+                    this.plugin.saveSettings().catch(console.error);
                 }));
 
         new Setting(containerEl)
             .setName('Model')
-            .setDesc('Model to use')
+            .setDesc('Model to use.')
             .addText(text => text
                 .setValue(this.plugin.settings.model)
-                .onChange(async (value) => {
+                .onChange((value) => {
                     this.plugin.settings.model = value;
-                    await this.plugin.saveSettings();
+                    this.plugin.saveSettings().catch(console.error);
                 }));
     }
 }

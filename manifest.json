@@ -1,9 +1,9 @@
 {
-    "id": "obsidian-deepseek-note-helper",
+    "id": "deepseek-note-helper",
     "name": "DeepSeek Note Helper",
     "version": "1.0.0",
     "minAppVersion": "0.15.0",
-    "description": "Modify your Obsidian notes using DeepSeek in the right sidebar. Supports Agentic Tool Calling, RAG and Bidirectional Links.",
+    "description": "Modify your local notes using DeepSeek in the right sidebar. Supports Agentic Tool Calling, RAG and Bidirectional Links.",
     "author": "Antigravity",
     "authorUrl": "https://github.com/google-deepmind/antigravity",
     "isDesktopOnly": false

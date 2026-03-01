@@ -28,7 +28,7 @@ export class DeepSeekView extends ItemView {
     }
 
     getDisplayText(): string {
-        return 'DeepSeek note helper';
+        return 'Deepseek note helper';
     }
 
     getIcon(): string {
@@ -51,22 +51,22 @@ export class DeepSeekView extends ItemView {
         container.empty();
         container.addClass('deepseek-chat-container');
 
-        container.createEl('h4', { text: 'DeepSeek chat', cls: 'chat-h4' });
+        container.createEl('h4', { text: 'Deepseek chat', cls: 'chat-h4' });
 
         this.chatContainer = container.createDiv({ cls: 'chat-messages' });
         const inputContainer = container.createDiv({ cls: 'chat-input-container' });
         this.inputEl = inputContainer.createEl('textarea', { cls: 'chat-input' });
-        this.inputEl.placeholder = 'Type your message... (Shift+Enter for newline, Enter to send)';
+        this.inputEl.placeholder = 'Type your message... (Shift+enter for newline, Enter to send)';
         const sendBtn = inputContainer.createEl('button', { text: 'Send' });
         sendBtn.addClass('mod-cta');
         sendBtn.addEventListener('click', () => {
-            this.handleSend().catch(console.error);
+            void this.handleSend().catch(console.error);
         });
 
         this.inputEl.addEventListener('keydown', (e: KeyboardEvent) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault(); // Prevent default newline
-                this.handleSend().catch(console.error);
+                void this.handleSend().catch(console.error);
             }
         });
 
@@ -139,9 +139,9 @@ export class DeepSeekView extends ItemView {
 
             await this.processConversationStream(messages, prompt);
         } catch (error) {
-            console.error('DeepSeek error:', error);
+            console.error('Deepseek error:', error);
             const errorMsg = error instanceof Error ? error.message : String(error);
-            new Notice('DeepSeek API error: ' + errorMsg);
+            new Notice('Deepseek API error: ' + errorMsg);
             await this.appendMessage('system', 'Error: ' + errorMsg);
         }
     }
@@ -152,7 +152,7 @@ export class DeepSeekView extends ItemView {
         }
 
         const msgDiv = this.chatContainer.createDiv({ cls: `chat-msg role-${role}` });
-        const senderName = role === 'user' ? 'You' : (role === 'assistant' ? 'DeepSeek' : (role === 'tool' ? 'Tool' : 'System'));
+        const senderName = role === 'user' ? 'You' : (role === 'assistant' ? 'Deepseek' : (role === 'tool' ? 'Tool' : 'System'));
 
         const headerDiv = msgDiv.createDiv({ cls: 'msg-header' });
         headerDiv.createEl('strong', {
@@ -166,7 +166,7 @@ export class DeepSeekView extends ItemView {
                 cls: 'clickable-icon chat-copy-btn'
             });
             copyBtn.addEventListener('click', () => {
-                (async () => {
+                void (async () => {
                     await navigator.clipboard.writeText(text);
                     copyBtn.innerText = 'Copied!';
                     setTimeout(() => { copyBtn.innerText = 'Copy'; }, 2000);
@@ -403,7 +403,7 @@ export class DeepSeekView extends ItemView {
 
         const headerDiv = msgDiv.createDiv({ cls: 'msg-header' });
         const senderLabel = headerDiv.createEl('strong', {
-            text: 'DeepSeek (thinking...)',
+            text: 'Deepseek (thinking...)',
             cls: 'chat-sender-label'
         });
 
@@ -439,7 +439,7 @@ export class DeepSeekView extends ItemView {
                 throw new Error(`API returned status ${response.status}: ${response.text}`);
             }
 
-            const data = response.json;
+            const data: { choices: Array<{ message: ChatMessage }> } = response.json;
             if (data.choices && data.choices[0].message) {
                 const message = data.choices[0].message;
                 if (message.content) {
@@ -460,7 +460,7 @@ export class DeepSeekView extends ItemView {
                 }
             }
             if (toolCall) {
-                senderLabel.innerText = `DeepSeek (running ${toolCall.name}...)`;
+                senderLabel.innerText = `Deepseek (running ${toolCall.name}...)`;
                 let toolResult = '';
 
                 try {
@@ -517,10 +517,10 @@ export class DeepSeekView extends ItemView {
             }
 
             // Streaming complete without tool call. Render final markdown and save to history.
-            senderLabel.innerText = 'DeepSeek';
+            senderLabel.innerText = 'Deepseek';
             copyBtn.removeClass('chat-hidden');
             copyBtn.addEventListener('click', () => {
-                (async () => {
+                void (async () => {
                     await navigator.clipboard.writeText(fullResponse);
                     copyBtn.innerText = 'Copied!';
                     setTimeout(() => { copyBtn.innerText = 'Copy'; }, 2000);

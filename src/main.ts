@@ -24,8 +24,8 @@ export default class DeepSeekPlugin extends Plugin {
             (leaf) => new DeepSeekView(leaf, this)
         );
 
-        this.addRibbonIcon('bot', 'Open DeepSeek helper', () => {
-            this.activateView().catch(console.error);
+        this.addRibbonIcon('bot', 'Open Deepseek helper', () => {
+            void this.activateView().catch(console.error);
         });
 
         this.addSettingTab(new DeepSeekSettingTab(this.app, this));
@@ -52,7 +52,8 @@ export default class DeepSeekPlugin extends Plugin {
     }
 
     async loadSettings() {
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+        const loadedData = await this.loadData() as Partial<DeepSeekSettings> | null;
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, loadedData);
     }
 
     async saveSettings() {
@@ -74,27 +75,27 @@ class DeepSeekSettingTab extends PluginSettingTab {
         const { containerEl } = this;
         containerEl.empty();
 
-        new Setting(containerEl).setName('DeepSeek').setHeading();
+        new Setting(containerEl).setName('Deepseek').setHeading();
 
         new Setting(containerEl)
-            .setName('API key')
-            .setDesc('Enter your DeepSeek API key.')
+            .setName('Api key')
+            .setDesc('Enter your Deepseek api key.')
             .addText(text => text
                 .setPlaceholder('sk-...')
                 .setValue(this.plugin.settings.apiKey)
                 .onChange((value) => {
                     this.plugin.settings.apiKey = value;
-                    this.plugin.saveSettings().catch(console.error);
+                    void this.plugin.saveSettings().catch(console.error);
                 }));
 
         new Setting(containerEl)
-            .setName('API URL')
-            .setDesc('Endpoint for DeepSeek API.')
+            .setName('Api url')
+            .setDesc('Endpoint for Deepseek api.')
             .addText(text => text
                 .setValue(this.plugin.settings.apiUrl)
                 .onChange((value) => {
                     this.plugin.settings.apiUrl = value;
-                    this.plugin.saveSettings().catch(console.error);
+                    void this.plugin.saveSettings().catch(console.error);
                 }));
 
         new Setting(containerEl)
@@ -104,7 +105,7 @@ class DeepSeekSettingTab extends PluginSettingTab {
                 .setValue(this.plugin.settings.model)
                 .onChange((value) => {
                     this.plugin.settings.model = value;
-                    this.plugin.saveSettings().catch(console.error);
+                    void this.plugin.saveSettings().catch(console.error);
                 }));
     }
 }

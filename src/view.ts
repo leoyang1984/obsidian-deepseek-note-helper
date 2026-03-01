@@ -1,4 +1,4 @@
-import { ItemView, WorkspaceLeaf, Notice, TFile, requestUrl, MarkdownRenderer, MarkdownView } from 'obsidian';
+import { ItemView, WorkspaceLeaf, Notice, TFile, TFolder, requestUrl, MarkdownRenderer, MarkdownView } from 'obsidian';
 import DeepSeekPlugin from './main';
 
 export const DEEPSEEK_VIEW_TYPE = 'deepseek-chat-view';
@@ -28,7 +28,7 @@ export class DeepSeekView extends ItemView {
     }
 
     getDisplayText(): string {
-        return 'DeepSeek Note Helper';
+        return 'DeepSeek note helper';
     }
 
     getIcon(): string {
@@ -59,7 +59,9 @@ export class DeepSeekView extends ItemView {
         this.inputEl.placeholder = 'Type your message... (Shift+Enter for newline, Enter to send)';
         const sendBtn = inputContainer.createEl('button', { text: 'Send' });
         sendBtn.addClass('mod-cta');
-        sendBtn.addEventListener('click', () => this.handleSend());
+        sendBtn.addEventListener('click', () => {
+            this.handleSend().catch(console.error);
+        });
 
         this.inputEl.addEventListener('keydown', (e: KeyboardEvent) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -69,14 +71,14 @@ export class DeepSeekView extends ItemView {
         });
 
         // Initial greeting
-        this.appendMessage('assistant', 'Hello! Ask me anything. If you highlight text in your note, I will remember it and focus on that. I can also search your entire vault or update your note metadata if you ask me to!');
+        this.appendMessage('assistant', 'Hello! Ask me anything. If you highlight text in your note, I will remember it and focus on that. I can also search your entire vault or update your note metadata if you ask me to!').catch(console.error);
     }
 
     async handleSend() {
         const instruction = this.inputEl.value.trim();
         if (!instruction) return;
 
-        this.appendMessage('user', instruction);
+        await this.appendMessage('user', instruction);
         this.inputEl.value = '';
 
         let contextString = '';
@@ -137,10 +139,10 @@ export class DeepSeekView extends ItemView {
 
             await this.processConversationStream(messages, prompt);
         } catch (error) {
-            console.error('DeepSeek Error:', error);
+            console.error('DeepSeek error:', error);
             const errorMsg = error instanceof Error ? error.message : String(error);
-            new Notice('DeepSeek API Error: ' + errorMsg);
-            this.appendMessage('system', 'Error: ' + errorMsg);
+            new Notice('DeepSeek API error: ' + errorMsg);
+            await this.appendMessage('system', 'Error: ' + errorMsg);
         }
     }
 
@@ -287,8 +289,8 @@ export class DeepSeekView extends ItemView {
             const markdownFiles: TFile[] = [];
 
             // Recursive helper to get all MD files
-            const getFiles = (f: import("obsidian").TAbstractFile | any) => {
-                if (f.children) {
+            const getFiles = (f: import("obsidian").TAbstractFile) => {
+                if (f instanceof TFolder) {
                     for (const child of f.children) {
                         getFiles(child);
                     }

@@ -56,20 +56,6 @@ The plugin natively integrates LLM Tool Calling formats, allowing the AI to inte
 
 ---
 
-## 🤖 Obsidian Review Bot Strict Guidelines (Must Read)
-
-If you are an AI generating or refactoring code for an Obsidian Community Plugin, you **MUST** strictly adhere to the following rules, otherwise the `ObsidianReviewBot` will automatically fail the PR:
-
-1. **Network Requests (`fetch` vs `requestUrl`)**: Do **NOT** use the native web `fetch` API. You must use Obsidian's `requestUrl` from the `obsidian` package. (This means giving up standard Server-Sent Events/streaming if you cannot parse the raw buffer appropriately).
-2. **No Inline Styles (`element.style.X`)**: Do **NOT** set inline styles directly via `element.style.display`, `element.style.padding`, etc. You must use CSS classes (e.g., `element.addClass('my-class')`) and put the styles in a dedicated `styles.css` file to ensure maintainability and theme compatibility.
-3. **Promise Handling**: Every single `Promise` must be `await`ed, end with a `.catch(console.error)`, or be explicitly marked as ignored with the `void` operator. Do not leave "floating" Promises, especially inside `.addEventListener` callbacks.
-4. **UI Text Casing**: All UI text (Setting names, button labels, descriptions) must use **Sentence case** (e.g., "API key" instead of "API Key", "DeepSeek settings" instead of "DeepSeek Settings").
-5. **No `any` Types**: TypeScript's `any` type is strictly forbidden. You must define explicit interfaces or use `Record<string, unknown>`.
-6. **Async Functions Requires Await**: If a method is marked as `async` (e.g., `async onOpen()`), it **must** contain an `await` expression internally (e.g., `await Promise.resolve()`), or the `async` keyword should be removed.
-7. **Native Setting Headings**: Do not manually create HTML headings (`containerEl.createEl('h2', {text: '...'})`) for settings pages. You must use the native API: `new Setting(containerEl).setName('...').setHeading()`.
-
----
-
 ## 📝 Summary & Advice to Successors
 
 1. **KISS Principle (Keep it simple, stupid)**: When writing Obsidian plugins, native DOM (`createEl`, `createDiv`) combined with `styles.css` using native CSS variables is always the most stable and cross-device compatible approach.
@@ -157,20 +143,6 @@ We completed this plugin's evolution from zero to a "Fully Auto Agent" in three 
   调用 `this.app.vault.getMarkdownFiles()` 和 `app.vault.cachedRead()` 获取全库文件进行关键字检索，并将切片传回给模型。
 - **`update_metadata(properties)` (修改属性)**：
   调用官方原生 API `this.app.fileManager.processFrontMatter(activeFile, (frontmatter) => { ... })` 安全地修改 YAML 区域，避免正则表达式破坏文档。
-
----
-
-## 🤖 官方审核机器人避坑指南 (Obsidian Review Bot) - AI 必读
-
-如果你是一个 AI，正在为 Obsidian 社区插件生成或重构代码，你 **必须** 严格遵守以下规则，否则提交 PR 后会被官方的 `ObsidianReviewBot` 自动打回：
-
-1. **网络请求风控 (`fetch` vs `requestUrl`)**：**绝对禁止** 使用原生的 `fetch` API 发起请求。必须使用官方提供的 `requestUrl` 工具函数。这也意味着为了合规，你可能不得不放弃标准的 Server-Sent Events (打字机流式输出)。
-2. **禁止内联样式 (`element.style.X`)**：**严禁** 在 JS/TS 代码中使用 `element.style.display` 或 `element.style.padding` 等修改样式。必须使用 CSS 类名（如 `.addClass('my-class')`）并将样式写在 `styles.css` 文件中，以保证用户主题的兼容性。
-3. **悬空 Promise 处理**：所有返回 `Promise` 的操作，**必须** 加上 `await`，或者在链式调用的末尾加上 `.catch(console.error)`，或者在最前面加上 `void` 关键字声明忽略。特别注意 `.addEventListener` 里的异步回调。
-4. **UI 文本句首大写 (Sentence case)**：所有面向用户的界面文本（设置项名称、描述等），必须使用 **Sentence case（仅首字母和专有名词大写）**，例如写 "API key" 而不能写 "API Key"。
-5. **禁止 `any` 类型**：TypeScript 代码中严禁用 `any` 当作逃课工具。必须写明具体的 `Interface` 或使用 `Record<string, ...>`。
-6. **Async 函数必须有 Await**：如果给方法打上了 `async` 标签（例如 `async onOpen()`），其函数体内 **必须** 包含至少一个 `await` 表达式（实在没有可以凑一个 `await Promise.resolve()`），否则就不允许标记为 async。
-7. **使用原生设置标题**：在设置页里，严禁手动去创建 HTML 标题标签（如 `createEl('h2')`）。必须遵循官方标准写法：`new Setting(containerEl).setName('...').setHeading()`。
 
 ---
 

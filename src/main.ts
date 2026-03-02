@@ -24,7 +24,7 @@ export default class DeepSeekPlugin extends Plugin {
             (leaf) => new DeepSeekView(leaf, this)
         );
 
-        this.addRibbonIcon('bot', 'Open Deepseek helper', () => {
+        this.addRibbonIcon('bot', 'Open deepseek helper', () => {
             void this.activateView().catch(console.error);
         });
 
@@ -79,7 +79,7 @@ class DeepSeekSettingTab extends PluginSettingTab {
 
         new Setting(containerEl)
             .setName('API key')
-            .setDesc('Enter your Deepseek API key.')
+            .setDesc('Enter your deepseek API key.')
             .addText(text => text
                 .setValue(this.plugin.settings.apiKey)
                 .onChange((value) => {
@@ -89,7 +89,7 @@ class DeepSeekSettingTab extends PluginSettingTab {
 
         new Setting(containerEl)
             .setName('API URL')
-            .setDesc('Endpoint for Deepseek API.')
+            .setDesc('Endpoint for deepseek API.')
             .addText(text => text
                 .setValue(this.plugin.settings.apiUrl)
                 .onChange((value) => {
